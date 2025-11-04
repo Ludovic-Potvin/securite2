@@ -7,7 +7,9 @@ authors = [
     { name = "lpotvin", email = "ludopotvin@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "pytest>=8.4.2",
+]
 
 [project.scripts]
 passmanager = "passmanager.main:main"
