@@ -10,7 +10,7 @@ requires-python = ">=3.12"
 dependencies = []
 
 [project.scripts]
-securite2 = "securite2:main"
+securite2 = "securite2.main:main"
 
 [build-system]
 requires = ["uv_build>=0.9.5,<0.10.0"]
