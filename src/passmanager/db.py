@@ -30,8 +30,7 @@ def create_tables() -> None:
     cursor.execute(
         """
     CREATE TABLE IF NOT EXISTS user (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT UNIQUE NOT NULL,
+        username TEXT PRIMARY KEY UNIQUE NOT NULL,
         password TEXT NOT NULL
     )
     """
@@ -41,11 +40,11 @@ def create_tables() -> None:
     cursor.execute(
         """
     CREATE TABLE IF NOT EXISTS password (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
+        username INTEGER NOT NULL,
         label TEXT NOT NULL,
         password TEXT NOT NULL,
         FOREIGN KEY(user_id) REFERENCES user(id)
+        PRIMARY KEY(username, label)
     )
     """
     )
