@@ -7,9 +7,7 @@ load_dotenv()
 
 def main() -> None:
     # DB
-    # TODO validate the DB exist
     init_db()
-    # TODO create DB if it doesn't
 
     # Arguments
     args = parse_arguments()
