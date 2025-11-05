@@ -1,9 +1,14 @@
 from passmanager.arguments import parse_arguments
+from passmanager.db import init_db
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def main() -> None:
     # DB
     # TODO validate the DB exist
+    init_db()
     # TODO create DB if it doesn't
 
     # Arguments
