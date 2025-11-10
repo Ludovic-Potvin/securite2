@@ -1,10 +1,12 @@
 from argparse import Namespace
-from passmanager.models import User, Password
+
+from passmanager.controller import Controller
+
 
 def launch_command(args: Namespace) -> None:
     try:
         if args.register:
-            register_user(args)
+            register_user(args.register)
         if args.user:
             if args.add:
                 print("add")
@@ -12,7 +14,3 @@ def launch_command(args: Namespace) -> None:
                 print("secure")
     except:
         pass
-
-def register_user(args: Namespace) -> None:
-    
-
