@@ -5,12 +5,27 @@ from passmanager.controller import Controller
 
 def launch_command(args: Namespace) -> None:
     try:
-        if args.register:
-            register_user(args.register)
         if args.user:
             if args.add:
+                # TODO
                 print("add")
-            elif args.secure:
-                print("secure")
+            elif args.delete:
+                # TODO
+                print("delete password")
+            elif args.see:
+                print("see")
+            elif args.list:
+                print("list password")
+            else:
+                print("general user info")
+        else:
+            if args.register:
+                print("delete user")
+            elif args.delete:
+                print("delete user")
+            elif args.list:
+                print("list users")
+            else:
+                print("general users info")
     except:
         pass
