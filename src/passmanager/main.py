@@ -13,7 +13,6 @@ def main() -> None:
     args: Namespace = parse_arguments()
 
     init_db()
-    close_db()
 
     try:
         launch_command(args)
