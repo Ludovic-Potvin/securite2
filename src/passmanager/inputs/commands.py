@@ -7,10 +7,8 @@ def launch_command(args: Namespace) -> None:
     try:
         if args.user:
             if args.add:
-                # TODO
                 print("add")
             elif args.delete:
-                # TODO
                 print("delete password")
             elif args.see:
                 print("see")
