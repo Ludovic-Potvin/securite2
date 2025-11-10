@@ -1,38 +1,47 @@
-import getpass
-from typing import Any
+import os
+
 from passmanager.models.user import User
-from passmanager.database import db
+from passmanager.models.password import Password
+from passmanager.services.master_password import (
+    ask_master_password,
+    compare_master_password,
+)
 
-from peewee import DoesNotExist
 
-
-class Controller:
+class UserController:
     @staticmethod
-    def register_user(username: str, password: str) -> User:
+    def register(username: str) -> None:
+        password = ask_master_password(username)
         user: User = User.create(username=username, password=password)
-        return user
+        print(f"--> user {username} successfully created")
 
     @staticmethod
-    def delete_user(username: str) -> bool:
-        is_deleted: bool = User.delete_by_id(pk=username)
-        return is_deleted
+    def delete(username: str) -> None:
+        password = ask_master_password(username)
+        # TODO
+        # ADD THE ENCRYPTION
+        if compare_master_password(username, password):
+            User.delete_by_id(pk=username)
+            print(f"--> user {username} successfully deleted")
+        else:
+            print(f"--> Wrong password for user {username}")
 
+    @staticmethod
+    def list() -> None:
+        users = User.select().dicts()
+        print("List of users")
+        print("-------------")
+        for user in users:
+            print(f"* {user}")
 
-def _ask_master_password(username) -> str:
-    prompt: str = f"/!\\ Enter {username} master password: "
-    password: str = getpass.getpass(prompt=prompt)
-    return password
+    @staticmethod
+    def general() -> None:
+        total_users = User.select().count()
+        total_passwords = Password.select().count()
+        default_user = os.getenv("DEFAULT_USER", "None")
 
-
-def _compare_user_password(username: str, password_input: str) -> bool:
-    # Fetch the user
-    try:
-        user: User = User.get_by_id(pk=username)
-    except DoesNotExist:
-        raise ValueError(f"User '{username}' not found.")
-
-    # Encode the password input
-    # TODO ENCODE
-    encoded_input = password_input
-
-    return True if user.password == encoded_input else False
+        print(f"General information")
+        print(f"-------------------")
+        print(f"total users: {total_users}")
+        print(f"total passwords: {total_passwords}")
+        print(f"default user: {default_user}")

@@ -1,10 +1,11 @@
 from argparse import Namespace
-from passmanager.arguments import parse_arguments
+from dotenv import load_dotenv
+
 from passmanager.database import db
 from passmanager.models.user import User
 from passmanager.models.password import Password
-from dotenv import load_dotenv
-from passmanager.commands import launch_command
+from passmanager.inputs.commands import launch_command
+from passmanager.inputs.arguments import parse_arguments
 
 load_dotenv()
 

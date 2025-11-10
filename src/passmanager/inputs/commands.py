@@ -1,6 +1,6 @@
 from argparse import Namespace
 
-from passmanager.controller import Controller
+from passmanager.controllers.user import UserController
 
 
 def launch_command(args: Namespace) -> None:
@@ -18,12 +18,14 @@ def launch_command(args: Namespace) -> None:
                 print("general user info")
         else:
             if args.register:
-                print("delete user")
+                username: str = args.register
+                UserController.register(username)
             elif args.delete:
-                print("delete user")
+                username: str = args.delete
+                UserController.delete(username)
             elif args.list:
-                print("list users")
+                UserController.list()
             else:
-                print("general users info")
+                UserController.general()
     except:
         pass
