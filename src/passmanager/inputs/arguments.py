@@ -12,7 +12,9 @@ def parse_arguments() -> argparse.Namespace:
 
     # Password management
     parser.add_argument("-u", "--user", help="Username")
-    parser.add_argument("-a", "--add", help="Add password")
+    parser.add_argument(
+        "-a", "--add", nargs=2, metavar=("label", "password"), help="Add password"
+    )
     parser.add_argument("-s", "--see", help="See")
 
     # Shared

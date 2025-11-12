@@ -1,5 +1,8 @@
 from passmanager.models.password import Password
-from passmanager.services.master_password import ask_master_password
+from passmanager.services.master_password import (
+    ask_master_password,
+    compare_master_password,
+)
 
 
 class PasswordController:
@@ -20,3 +23,48 @@ class PasswordController:
         print(f"-------------------------------")
         for password in passwords:
             print(f"* {password.label}")
+
+    @staticmethod
+    def delete(username: str, label: str) -> None:
+        password = ask_master_password(username)
+
+        # TODO
+        # ADD THE ENCRYPTION
+
+        if compare_master_password(username, password):
+            Password.delete().where(
+                (Password.username == username) & (Password.label == label)
+            ).execute()
+            print(f"--> Password {label} for user {username} successfully deleted")
+        else:
+            print(f"--> Wrong password for user {username}")
+
+    @staticmethod
+    def see(username, label) -> None:
+        password = ask_master_password(username)
+
+        # TODO
+        # ADD THE ENCRYPTION
+
+        if compare_master_password(username, password):
+            password = (
+                Password.select()
+                .where((Password.username == username) & (Password.label == label))
+                .get()
+            )
+
+            # TODO
+            # ADD THE DECRYPTION
+            plain_text_password = password.password
+
+            print(f"--> Password {label} is: {plain_text_password}")
+        else:
+            print(f"--> Wrong password for user {username}")
+
+    @staticmethod
+    def general(username) -> None:
+        total_passwords = Password.select().where(Password.username == username).count()
+
+        print(f"{username} information")
+        print(f"-------------------")
+        print(f"total passwords: {total_passwords}")
