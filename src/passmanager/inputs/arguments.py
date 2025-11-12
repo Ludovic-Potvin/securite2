@@ -16,7 +16,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("-s", "--see", help="See")
 
     # Shared
-    parser.add_argument("-l", "--list", help="List")
+    parser.add_argument("-l", "--list", help="List", action="store_true")
     parser.add_argument("-d", "--delete", help="Delete")
 
     args: argparse.Namespace = parser.parse_args()

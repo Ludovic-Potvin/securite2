@@ -12,14 +12,16 @@ class UserController:
     @staticmethod
     def register(username: str) -> None:
         password = ask_master_password(username)
-        user: User = User.create(username=username, password=password)
+        User.create(username=username, password=password)
         print(f"--> user {username} successfully created")
 
     @staticmethod
     def delete(username: str) -> None:
         password = ask_master_password(username)
+
         # TODO
         # ADD THE ENCRYPTION
+
         if compare_master_password(username, password):
             User.delete_by_id(pk=username)
             print(f"--> user {username} successfully deleted")
@@ -28,11 +30,11 @@ class UserController:
 
     @staticmethod
     def list() -> None:
-        users = User.select().dicts()
+        users = User.select()
         print("List of users")
         print("-------------")
         for user in users:
-            print(f"* {user}")
+            print(f"* {user.username}")
 
     @staticmethod
     def general() -> None:

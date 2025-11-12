@@ -1,5 +1,6 @@
 from argparse import Namespace
 
+from passmanager.controllers.password import PasswordController
 from passmanager.controllers.user import UserController
 
 
@@ -13,7 +14,8 @@ def launch_command(args: Namespace) -> None:
             elif args.see:
                 print("see")
             elif args.list:
-                print("list password")
+                username: str = args.user
+                PasswordController.list(username)
             else:
                 print("general user info")
         else:
