@@ -6,6 +6,7 @@ from passmanager.models.user import User
 from passmanager.models.password import Password
 from passmanager.inputs.commands import launch_command
 from passmanager.inputs.arguments import parse_arguments
+from passmanager.services.master_password import ask_master_password
 
 load_dotenv()
 

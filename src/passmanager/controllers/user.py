@@ -2,6 +2,7 @@ import os
 
 from passmanager.models.user import User
 from passmanager.models.password import Password
+from passmanager.services.crypto import CryptoService
 from passmanager.services.master_password import (
     ask_master_password,
     compare_master_password,
@@ -12,7 +13,10 @@ class UserController:
     @staticmethod
     def register(username: str) -> None:
         password = ask_master_password(username)
-        User.create(username=username, password=password)
+
+        password, salt = CryptoService.hash_master_password(username, password)
+
+        User.create(username=username, password=password, salt=salt)
         print(f"--> user {username} successfully created")
 
     @staticmethod
