@@ -8,13 +8,16 @@ from passmanager.services.master_password import (
 class PasswordController:
     @staticmethod
     def add(username: str, label: str, password: str) -> None:
-        master_password = ask_master_password(username)
+        plain_password = ask_master_password(username)
 
-        # TODO
-        # ADD THE ENCRYPTION
+        if compare_master_password(username, plain_password):
+            # TODO
+            # ADD THE DECRYPTION
 
-        Password.create(username=username, password=password, label=label)
-        print(f"--> Password {label} successfully created")
+            Password.create(username=username, password=password, label=label)
+            print(f"--> Password {label} successfully created")
+        else:
+            print(f"--> Wrong password for user {username}")
 
     @staticmethod
     def list(username) -> None:
@@ -26,12 +29,9 @@ class PasswordController:
 
     @staticmethod
     def delete(username: str, label: str) -> None:
-        password = ask_master_password(username)
+        plain_password = ask_master_password(username)
 
-        # TODO
-        # ADD THE ENCRYPTION
-
-        if compare_master_password(username, password):
+        if compare_master_password(username, plain_password):
             Password.delete().where(
                 (Password.username == username) & (Password.label == label)
             ).execute()
@@ -41,12 +41,9 @@ class PasswordController:
 
     @staticmethod
     def see(username, label) -> None:
-        password = ask_master_password(username)
+        plain_master_password = ask_master_password(username)
 
-        # TODO
-        # ADD THE ENCRYPTION
-
-        if compare_master_password(username, password):
+        if compare_master_password(username, plain_master_password):
             password = (
                 Password.select()
                 .where((Password.username == username) & (Password.label == label))

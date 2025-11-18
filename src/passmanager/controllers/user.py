@@ -1,8 +1,9 @@
+import base64
 import os
 
 from passmanager.models.user import User
 from passmanager.models.password import Password
-from passmanager.services.crypto import CryptoService
+from passmanager.services.crypto import hash_master_password
 from passmanager.services.master_password import (
     ask_master_password,
     compare_master_password,
@@ -12,21 +13,17 @@ from passmanager.services.master_password import (
 class UserController:
     @staticmethod
     def register(username: str) -> None:
-        password = ask_master_password(username)
+        password: str = ask_master_password(username)
+        password_base64, salt_base64 = hash_master_password(plain_password=password)
 
-        password, salt = CryptoService.hash_master_password(username, password)
-
-        User.create(username=username, password=password, salt=salt)
+        User.create(username=username, password=password_base64, salt=salt_base64)
         print(f"--> user {username} successfully created")
 
     @staticmethod
     def delete(username: str) -> None:
-        password = ask_master_password(username)
+        plain_password = ask_master_password(username)
 
-        # TODO
-        # ADD THE ENCRYPTION
-
-        if compare_master_password(username, password):
+        if compare_master_password(username, plain_password):
             User.delete_by_id(pk=username)
             print(f"--> user {username} successfully deleted")
         else:
