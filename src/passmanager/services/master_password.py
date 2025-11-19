@@ -21,20 +21,7 @@ def compare_master_password(username: str, plain_password: str) -> bool:
         raise ValueError(f"User '{username}' not found.")
 
     # Hash the password
-    salt = get_salt(username)
+    salt = user.get_salt()
     hash_input, _ = hash_master_password(plain_password, salt)
 
     return True if user.password == hash_input else False
-
-
-def get_salt(username):
-    """
-    Return the password already base64 decoded
-    """
-    # Fetch the user
-    try:
-        user: User = User.get(User.username == username)
-    except DoesNotExist:
-        raise ValueError(f"User '{username}' not found.")
-
-    return base64.b64decode(str(user.salt))

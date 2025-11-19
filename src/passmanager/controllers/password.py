@@ -1,4 +1,5 @@
 from passmanager.models.password import Password
+from passmanager.services.crypto import encrypte_password, decrypte_password
 from passmanager.services.master_password import (
     ask_master_password,
     compare_master_password,
@@ -11,17 +12,23 @@ class PasswordController:
         plain_password = ask_master_password(username)
 
         if compare_master_password(username, plain_password):
-            # TODO
-            # ADD THE DECRYPTION
+            # Encrypte the password
+            encrypted_password, salt, iv = encrypte_password(password, plain_password)
 
-            Password.create(username=username, password=password, label=label)
+            Password.create(
+                username=username,
+                password=encrypted_password,
+                label=label,
+                salt=salt,
+                iv=iv,
+            )
             print(f"--> Password {label} successfully created")
         else:
             print(f"--> Wrong password for user {username}")
 
     @staticmethod
     def list(username) -> None:
-        passwords = Password.select(Password.username == username)
+        passwords = Password.select().where(Password.username == username)
         print(f"List of password for {username}")
         print(f"-------------------------------")
         for password in passwords:
@@ -44,15 +51,17 @@ class PasswordController:
         plain_master_password = ask_master_password(username)
 
         if compare_master_password(username, plain_master_password):
-            password = (
-                Password.select()
-                .where((Password.username == username) & (Password.label == label))
-                .get()
+            password = Password.get(
+                (Password.username == username) & (Password.label == label)
             )
 
-            # TODO
-            # ADD THE DECRYPTION
-            plain_text_password = password.password
+            encrypted_password = password.get_password()
+            salt = password.get_salt()
+            iv = password.get_iv()
+
+            plain_text_password = decrypte_password(
+                encrypted_password, plain_master_password, salt, iv
+            )
 
             print(f"--> Password {label} is: {plain_text_password}")
         else:
