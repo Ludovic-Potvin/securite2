@@ -123,6 +123,7 @@ dependencies = [
     { name = "cryptography" },
     { name = "peewee" },
     { name = "python-dotenv" },
+    { name = "sqlcipher3-binary" },
 ]
 
 [package.metadata]
@@ -130,6 +131,7 @@ requires-dist = [
     { name = "cryptography", specifier = ">=46.0.3" },
     { name = "peewee", specifier = ">=3.18.3" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
+    { name = "sqlcipher3-binary", specifier = ">=0.5.4" },
 ]
 
 [[package]]
@@ -154,4 +156,13 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/f0/26/19cadc79a718c5edbec86fd4919a6b6d3f681039a2f6d66d14be94e75fb9/python_dotenv-1.2.1.tar.gz", hash = "sha256:42667e897e16ab0d66954af0e60a9caa94f0fd4ecf3aaf6d2d260eec1aa36ad6", size = 44221, upload-time = "2025-10-26T15:12:10.434Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/14/1b/a298b06749107c305e1fe0f814c6c74aea7b2f1e10989cb30f544a1b3253/python_dotenv-1.2.1-py3-none-any.whl", hash = "sha256:b81ee9561e9ca4004139c6cbba3a238c32b03e4894671e181b671e8cb8425d61", size = 21230, upload-time = "2025-10-26T15:12:09.109Z" },
+]
+
+[[package]]
+name = "sqlcipher3-binary"
+version = "0.5.4"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/61/5d/15e6bb7a95a573497a29b6f654975b2a6ebc1641f83d36708a72010d59ef/sqlcipher3_binary-0.5.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:fe9e4303725dd98d60af26de0a6d5105a20b32e37a43fc3d18cbaaba6dbb22e5", size = 5848048, upload-time = "2024-10-12T12:49:14.495Z" },
+    { url = "https://files.pythonhosted.org/packages/4d/91/9cd6516476694d53db3c0c97ba24cad73cc12539d94e9704d5623589ce5b/sqlcipher3_binary-0.5.4-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:82c8f208f153b1a5e7b47165d8a462526294b7330fae77b7747b25361eeeca53", size = 5844167, upload-time = "2024-10-12T12:49:24.159Z" },
 ]
