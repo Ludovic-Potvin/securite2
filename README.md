@@ -7,8 +7,12 @@ Python – 3.12
 > [!NOTE] General information
 > Le projet utilise UV pour manage les dependances. Il est plus facile de
 > l'installer en utilisant UV.
+
 > generate_env.sh creer un env file. Il va marcher avec les valeurs par default
 > mais peut etre modifier.
+
+> Pour mettre la DB a l'endroit demande (/db/database.db), il faut aller mettre
+> le path dans le .env apres l'avoir genere.
 
 ## Installation
 #### Avec UV
